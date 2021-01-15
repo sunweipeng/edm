@@ -1,0 +1,124 @@
+{% extends 'bootstrap/base.html' %}
+{% block metas %}
+{{ super() }}
+    <meta charset="UTF-8">
+    <meta name='apple-touch-fullscreen' content='yes'>
+	<meta name="full-screen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="format-detection" content="address=no"/>
+{% endblock %}
+{% block title %}退订{% endblock %}
+{% block styles %}
+{{ super() }}
+<style>
+    body {
+        font-family: '微软雅黑', Arial;
+        background-color: #f8f8f8;
+        font-size: 12px;
+        line-height: 1.3;
+        color: #898989;
+    }
+    .container{
+        overflow: hidden;
+        max-width: 503px;
+        margin: 8% auto;
+        border-radius: 10px;
+        background-color: #fff;
+    }
+    .container img{
+        display: block;
+        width: 100%;
+    }
+    .container .content{
+        padding: 40px 65px;
+        min-height: 320px;
+    }
+    .content p{
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+    }
+    .content label{
+        display: block;
+        line-height: 2.5;
+        vertical-align: middle;
+    }
+    .content input{
+        vertical-align: text-bottom;
+        margin-right: 5px;
+    }
+    .content form{
+        margin-top: 20px;
+    }
+    .content .buttons{
+        margin-top: 20px;
+    }
+    .content .buttons button{
+        margin-right: 20px;
+    }
+    .msg{
+        display: none;
+    }
+    .msg p{
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <img src="{{ url_for('static',filename = 'img/top.png') }}" alt="">
+        <div class="content">
+            <p>很抱歉给您带来了困扰!</p>
+            <p>您若要离开我，是否告诉我哪里做得不好？</p>
+            <form action="{{ url_for('edm.save_unsubscribe') }}" method="post">
+                <input type="hidden" value="{{ email }}" name="email"/>
+                <label><input type="checkbox" name="reason" value="赤裸裸的标题党">赤裸裸的标题党</label>
+                <label><input type="checkbox" name="reason" value="想吐槽内容与设计">想吐槽内容与设计</label>
+                <label><input type="checkbox" name="reason" value="明明就是垃圾邮件">明明就是垃圾邮件</label>
+                <label><input type="checkbox" name="reason" value="发送频率太高">发送频率太高</label>
+                <label><input type="checkbox" name="reason" value="心好累,不想再说了">心好累,不想再说了</label>
+            </form>
+            <div class="buttons">
+                <button type="button" class="btn btn-warning">取消退订</button>
+                <button type="button" class="btn btn-info">确认退订</button>
+            </div>
+        </div>
+        <div class="content msg">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p></p>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script type="application/javascript">
+$(".btn-warning").off().on("click",function(){
+    $(".content").hide();
+    $(".msg").show().find('p').html('感谢您的信任，我会努力做得更好的！');
+});
+
+$(".btn-info").off().on("click",function(){
+    $(".content").hide();
+    $.ajax({
+        url:"{{ url_for('edm.save_unsubscribe') }}",
+        type:"post",
+        data:$("form").serialize(),
+        dataType:"json",
+        success:function(data){
+            $(".msg").show().find('p').html('退订成功，谢谢您的参与！');
+        },
+        error:function(XMLHttpRequest, textStatus, e){
+            $(".msg").show().find('p').html('退订成功，谢谢您的参与！');
+        }
+    });
+});
+</script>
+{% endblock %}

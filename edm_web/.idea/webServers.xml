@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1ce90da7-29bd-49ed-8f11-fadc81c48b15" name="39.97.167.115" url="http://39.97.167.115">
+        <fileTransfer host="39.97.167.115" port="22" rootFolder="/root/edm_web" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="5e548c5c-a839-4637-be09-7e99c6e088fc" name="106.13.34.176" url="http://106.13.34.176">
+        <fileTransfer host="106.13.34.176" port="22" rootFolder="/root/edm_web" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
